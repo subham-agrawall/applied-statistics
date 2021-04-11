@@ -1,3 +1,3 @@
 # Simple Regression
 
-It contains implementatio of simpe regression using lm method in R.
+It contains implementation of simple regression using lm method in R.
