@@ -1,2 +1,5 @@
-# applied-statistics
-This repository has some basic concepts of applied statistics implemented in R.
+# Applied Statistics
+This repository has some of the basic concepts of applied statistics implented in R.
+
+# Topics
+1. 
