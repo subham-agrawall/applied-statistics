@@ -1,0 +1,174 @@
+library(prob)
+library(prob)
+library(prob)
+install.packages('prob')
+library(prob)
+install.packages("prob")
+install.packages("prob")
+library(prob)
+s<- data.frame(toss1 = c("H", "T"))
+S
+s
+tosscoin(1)
+tosscoin(3)
+tosscoin(3)
+tosscoin(4)
+tosscoin(2)
+tosscoin(3)
+rolldie(1)
+rolldie(2)
+rolldie(3, nsides=4)
+cards()
+urnsamples(1:3, size=2, replace=TRUE, ordered=TRUE)
+urnsamples(1:3, size=2, replace=FALSE, ordered=TRUE)
+urnsamples(1:3, size=2, replace=FALSE, ordered=FALSE)
+urnsamples(1:3, size=2, replace=TRUE, ordered=FALSE)
+s = tosscoin(2, makespace = TRUE)
+s
+s[1:3,]
+s[c(2,4),]
+s= cards()
+subset(s, suit=="Heart")
+subset(s, rank %in% 7:9)
+subset(rolldie(3), X1 + X2 + X3 > 16)
+x = 1:10
+y= 8:12
+y %in% x
+isin(x,y)
+x = 1:10
+y = c(3,3,7)
+all(y %in% x)
+isin(x,y)
+a = subset(s, suit=="Heart")
+b = subset(s, rank %in% 7:9)
+a
+b
+union(a,b)
+intersect(a,b)
+setdiff(a,b)
+x = 1:10
+y= 8:12
+all(y %in% x)
+outcomes = rolldie(1)
+outcomes
+p = rep(1/6, times=6)
+probspace(outcomes, probs=p)
+probspace(1:6, probs=p)
+probspace(1:6)
+rolldie(1, makespace = TRUE)
+probspace(tosscoin(1), probs = c(0.7,0.3))
+p = rep(1/7, times=6)
+probspace(outcomes, probs=p)
+p = rep(1/8, times=6)
+probspace(outcomes, probs=p)
+p = rep(1/6, times=6)
+s= cards(makespace = TRUE)
+A= subset(s, suit=="Heart")
+B= subset(s, rank %in% 7:9)
+Prob(A)
+Prob(B)
+Prob(s)
+nsamp(n=3, k=2, replace=TRUE, ordered=TRUE)
+nsamp(n=3, k=2, replace=FALSE, ordered=TRUE)
+S = rolldie(2)
+S
+A = subset(S, X1 + X2 == 8)
+A
+B = subset(S, X1 == X2)
+B
+Prob(A)
+S = rolldie(2, makespace = TRUE)
+S
+A = subset(S, X1 + X2 == 8)
+A
+B = subset(S, X1 == X2)
+B
+Prob(A)
+Prob(B)
+C = intersect(A,B)
+C
+ans1 = Prob(C)/Prob(B)
+Prob(C)/Prob(B)
+Prob(C)/Prob(A)
+Prob(A, given = B)
+Prob(A, given = B) #Better
+Prob(B, given=A)
+S = cards()
+S
+B = subset(S, X1 + X2 == 8)
+B
+A = subset(S, X1 == X2)
+A
+urnsamples(cards(), size=2, replace = FALSE, ordered = FALSE)
+S = urnsamples(cards(makespace = TRUE), size=2, replace = FALSE, ordered = FALSE)
+View(s)
+S = urnsamples(cards(makespace = TRUE), size=2, replace = FALSE, ordered = FALSE)
+S = as.data.frame(urnsamples(cards(makespace = TRUE), size=2, replace = FALSE, ordered = FALSE))
+View(S)
+View(S)
+urnsamples(cards(), size=2, replace = FALSE, ordered = FALSE)
+urnsamples(cards(makespace = TRUE), size=2, replace = FALSE, ordered = FALSE)
+nsample(n=52, k=2, replace = FALSE, ordered = FALSE)
+nsamp(n=52, k=2, replace = FALSE, ordered = FALSE)
+52*51
+nsamp(n=52, k=2, replace = FALSE, ordered = TRUE)
+choose(52, 2)
+nsamp(n=4, k=2, replace = FALSE, ordered = TRUE)
+12/2652
+factorial(2)
+factorial(3)
+S=cards(makespace = TRUE)
+Snsamp(n=52, k=2, replace = FALSE, ordered = TRUE)
+S
+urnsamples(S, size=2, replace = FALSE, ordered = TRUE)
+urnsamples(1:10, size=3, replace=FALSE, ordered=FALSE)
+urnsamples(1:10, size=3, replace=FALSE, ordered=TRUE)
+length(urnsamples(1:10, size=3, replace=FALSE, ordered=TRUE))
+S = urnsamples(1:10, size=3, replace=FALSE, ordered=TRUE)
+S
+nrow(S)
+p = rep(1/720, times=720)
+p = rep(1, times=720)
+probspace(S, probs = p)
+S = probspace(S, probs = p)
+S
+A= subset(S, X1<8 & X2<8 & X3<8)
+A
+Prob(A)
+View(S)
+View(S)
+B= subset(S, X1<8 & X2<8 & X3>7| X1<8 & X2>7 & X3<8 | X1>7 & X2<8 & X3<8)
+Prob(B)
+C= subset(S, X1<8 & X2<8 & X3>7)
+Prob(C)
+0.175*3
+0.1*(6/9)*(5/8)
+Prob(A)
+tosscoin(10, makespace = TRUE)
+S = tosscoin(10, makespace = TRUE)
+View(S)
+View(S)
+S = urnsamples(1:10, size=3, replace=FALSE, ordered=TRUE)
+p = rep(1, times=720)
+S = probspace(S, probs = p)
+S
+0.7*(6/9)*(5/8)
+Prob(A)
+Prob(B)
+7/10
+0.7*(6/9)*(3/8)
+0.3*(7/9)*(6/8)
+s = rolldie(3, nsides=4, makespace=TRUE)
+s = addrv(S, U=X1-X2+X3)
+head(s)
+View(s)
+View(s)
+Prob(S, U>6)
+Prob(s, U>6)
+s = addrv(s, FUN = max, invars = c("X1", "X2","X3"), name="V")
+marginal(s, vars = v)
+marginal(s, vars = "v")
+marginal(s, vars = "v")
+s = addrv(s, FUN = max, invars = c("X1", "X2","X3"), name="V")
+marginal(s, vars = "v")
+marginal(s, vars = "V")

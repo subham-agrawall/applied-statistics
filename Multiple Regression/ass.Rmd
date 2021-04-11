@@ -1,0 +1,226 @@
+---
+title: "Multiple Linear Regression"
+author: "Subham Agrawal"
+date: "23 April 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question-1
+
+```{r}
+library(UsingR)
+data(homeprice)
+plot(homeprice$half, homeprice$sale)
+summary(lm(sale~ half, data=homeprice))
+```
+
+From the above plots and regession model, we observe that sale price increases with number of half bathrooms.
+
+```{r}
+summary(lm(sale~ full+half+bedrooms+rooms+neighborhood+list, data=homeprice))
+```
+
+With  every half bathroom in home, actual sale price goes up since coefficient is positive.
+
+## Question-2
+
+```{r}
+sale.lm<-lm(sale~ full+half+bedrooms+rooms+neighborhood-1, data=homeprice)
+summary(sale.lm)
+```
+
+There is not much change in coefficients if b0 is forced to be zero. Coefficient of full, half, bedrooms and neighborhood increase or decrease by 10 but are still positive i.e. with increase in this variables sale price increases. Whereas coefficient for rooms becomes negative. 
+The adjusted R-squared value increases from 0.8879 to 0.9736. Thus it makes complete sense for this model to have no intercept term.
+
+## Question-3
+
+```{r}
+homeprice$diff= homeprice$sale-homeprice$list
+plot(homeprice$neighborhood, homeprice$diff)
+tapply(homeprice$diff, homeprice$neighborhood, mean)
+```
+
+As there is no pattern in means of difference between sale price and list price for different neighborhoods, we conclude there is no effect.
+
+```{r}
+summary(lm(diff~neighborhood, data=homeprice))
+```
+
+Same can be seen from the simple regression model above. As the p-value is greater than 0.05, we don't reject the null hypothesis. Hence there is no effect of neighborhood on the difference between sale price and list price.
+
+## Question-4
+
+(From question-3)
+No
+Nicer neighborhoods doesn't mean it is more likely to have a house go over the asking price.
+
+## Question-5
+
+Lets see if there is a significant relationship between residual and difference between sale and list price if both are positive.
+
+```{r}
+newdata=data.frame(homeprice, fitted.value=fitted(sale.lm), residual= resid(sale.lm))
+plot(newdata$diff, newdata$residual)
+newdata2= subset(newdata, residual>0 & diff>0)
+summary(lm(residual~diff, data=newdata2))
+```
+
+As the p-value is greater than 0.05, we don't reject the null hypothesis that β = 0. Hence there is no relationship between houses which sell for more than predicted (a positive residual) and houses which sell for more than asking.
+
+## Question-6
+
+```{r}
+summary(lm(sale~list-1, data=homeprice))
+```
+The above simple linear regression model has adjusted R-squared value of 0.9981 when intercept is forced to be zero. The coefficient of list in this model is 0.991, can be approximated as 1. Thus, real estate agents are pricing the home correctly.
+
+sale price= 0.991*list
+
+## Question-7
+
+I'm not a facebook user. So will randomly generate data for this question.
+
+```{r}
+data1=data.frame(sample(300:1000, 11))
+colnames(data1)<-c("friends")
+
+library(MASS)
+xbar=mean(data1$friends)
+stan_dev=sd(data1$friends) # Calculating sample standard deviation
+n=length(data1$friends)
+
+# Standard Error estimate
+standard_Err=stan_dev/sqrt(n)
+t_alphaby2=qt(0.975,df=n-1) # Quantile value
+t_alphaby2
+
+# Margin Of error
+Err_Margin=t_alphaby2*standard_Err
+Err_Margin
+
+xbar+c(-Err_Margin,Err_Margin)
+
+```
+
+OR
+
+```{r}
+t.test(data1$friends)
+```
+
+confidence interval for 11 members is (601.686, 917.768)
+
+```{r}
+data2=data.frame(sample(300:1000, 56))
+colnames(data2)<-c("friends")
+t.test(data2$friends)
+```
+
+confidence interval for 56 members is (566.63, 680.51)
+
+As I have used randomly genearted data, cannot comment on average number of friends a profile can have.
+
+## Question-8
+
+Null hypothesis: mu=8
+Alternate hypothesis: mu!=8
+
+Suppose we are testing at the 5 percent level of significance.
+```{r}
+xbar=9.5  # sample mean
+mu0=8     # true mean
+sigma=2   # population standard deviation
+n= 5      # sample size
+z=(xbar-mu0)/(sigma/sqrt(n))
+z         # test statistic
+
+alpha=0.05
+z.half_alpha=qnorm(1-alpha/2)
+c(-z.half_alpha,z.half_alpha)
+```
+
+The test statistic 1.68 lies between -1.96 to 1.96.
+Hence, at 0.05 significance level, we do not reject null hypothesis that mu=8
+
+OR
+
+```{r}
+pval=2*pnorm(z)
+pval
+```
+
+Since it turns out to be greater than the 0.05 significance level, we do not reject the null hypothesis that μ=8.
+
+For 10 percent significance level,
+
+```{r}
+alpha=0.1
+z.half_alpha=qnorm(1-alpha/2)
+c(-z.half_alpha,z.half_alpha)
+```
+
+The test statistic 1.68 is greater than critical value(upper bound) 1.645. Hence, at 0.1 significance level, we reject null hypothesis that mu=8 
+
+
+## Question-9
+
+```{r}
+pulse=c(54, 63, 58, 72, 49, 92, 70, 73, 69, 104, 48, 66, 80, 64, 77)
+xbar=mean(pulse)
+stan_dev=sd(pulse) # Calculating sample standard deviation
+n=15
+
+# Standard Error estimate
+standard_Err=stan_dev/sqrt(n)
+t_alphaby2=qt(0.975,df=n-1) # Quantile value
+t_alphaby2
+
+# Margin Of error
+Err_Margin=t_alphaby2*standard_Err
+Err_Margin
+
+xbar+c(-Err_Margin,Err_Margin)
+```
+OR
+```{r}
+t.test(pulse)
+```
+
+95 percent confidence interval = (60.87, 77.67)
+
+Lower confidence interval will have an upper bound. Calculation for upper bound is shown below. 
+
+```{r}
+t_alphaby2=qt(0.95,df=n-1) # Quantile value
+t_alphaby2
+
+# Margin Of error
+Err_Margin=t_alphaby2*standard_Err
+Err_Margin
+
+xbar+c(-Inf,Err_Margin)
+```
+
+95 percent lower confidence interval = (-inf, 76.1646)
+
+## Question-10
+
+From central limit theorem, total yearly claim will have approximately a normal distribution with mean and standard deviation calculated below:
+
+```{r}
+n=25000
+mean=320
+sd=540
+new_mean= mean*n
+new_sd= sd*sqrt(n)
+
+1-pnorm(8300000, new_mean, new_sd)
+```
+
+probability=0.00022
+
+Thus, there are only 2.2 chances out of 10,000 that the total yearly claim will exceed 8.3 million.
